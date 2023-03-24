@@ -6,6 +6,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -56,8 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
-          key:
-          _formKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -128,6 +128,34 @@ class ResultScreen extends StatelessWidget {
 
   const ResultScreen({Key? key, required this.result}) : super(key: key);
 
+  String _setResult(double result) {
+    if (result < 18.5) {
+      return 'Abaixo do peso';
+    }
+
+    if (result >= 18.5 && result <= 24.9) {
+      return 'Peso normal';
+    }
+
+    if (result >= 25 && result <= 29.9) {
+      return 'Sobrepeso';
+    }
+
+    if (result >= 30 && result <= 34.9) {
+      return 'Obesidade grau I';
+    }
+
+    if (result >= 35 && result <= 39.9) {
+      return 'Obesidade grau II';
+    }
+
+    if (result >= 40) {
+      return 'Obesidade grau III';
+    }
+
+    return 'Sem resultado';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,9 +163,16 @@ class ResultScreen extends StatelessWidget {
         title: const Text('Resultado'),
       ),
       body: Center(
-        child: Text(
-          'Seu IMC é ${result.toStringAsFixed(2)}',
-          style: const TextStyle(fontSize: 24.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Seu IMC é ${result.toStringAsFixed(2)}',
+              style: const TextStyle(fontSize: 24.0),
+            ),
+            Text(_setResult(result))
+          ],
         ),
       ),
     );
